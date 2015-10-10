@@ -1,4 +1,0 @@
-
-
-
-http://developer.echonest.com/api/v4/song/search?api_key=RJ7OB5YITVMP3EFS0&format=json&results=1&artist=Bob%20Marley&title=jammin&bucket=id:spotify&bucket=tracks&limit=true

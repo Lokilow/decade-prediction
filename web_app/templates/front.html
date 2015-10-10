@@ -138,9 +138,13 @@
         Powered by <a href="http://the.echonest.com">The Echo Nest</a> and <a href="http://spotify.com">Spotify</a>. 
     </div>
   </div>
+
+  <p>
+{% if result != None %}   
 <div id="contentframe" style="position:relative; top: 160px; left: 0px;">
-<iframe src="https://embed.spotify.com/?uri=spotify:trackset:tracks:6RmGJuvOwCO0C51XDkQ4tc,1x6ACsKV4UdWS2FMuPFUiT,4bi73jCM02fMpkI11Lqmfe" frameborder="0" allowtransparency="true"></iframe>
+<iframe src="https://embed.spotify.com/?uri=spotify:trackset:{{ index_playlist}}", frameborder="0" allowtransparency="true"></iframe>
   </div>
+  {% endif %}
  </div>
 </body>
 

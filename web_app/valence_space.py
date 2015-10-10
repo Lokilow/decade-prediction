@@ -1,8 +1,13 @@
 from flask import Flask, render_template, request
 import random
 from classify import predict_decade
+from generate_playlist import generate_playlist
 import sys
 from feature_inputs import InputForm
+import pickle
+
+
+df = pickle.load(open('../../valence_space_data/model/spotify_db.p'))
 
 
 try:
@@ -28,13 +33,19 @@ def index():
             form.duration.data, form.energy.data, form.instrumentalness.data, form.liveness.data,
             form.loudness.data, form.mode.data, form.speechiness.data, form.tempo.data,
             form.time_signature.data, form.valence.data)
+        index_playlist = generate_playlist(df, form.acousticness.data, form.danceability.data,
+            form.duration.data, form.energy.data, form.instrumentalness.data, form.liveness.data,
+            form.loudness.data, form.mode.data, form.speechiness.data, form.tempo.data,
+            form.time_signature.data, form.valence.data)
+
     else:
         result = None
+        index_playlist = None
 
-    return render_template(template_name + '.html', form=form, result=result)
+    return render_template(template_name + '.html', form=form, result=result, index_playlist=index_playlist)
 
-@app.route('/playlist')
-def playlist():
+@app.route('/page_playlist')
+def page_playlist():
     return render_template('front.html')
 
 @app.route('/about')

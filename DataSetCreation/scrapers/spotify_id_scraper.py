@@ -16,7 +16,7 @@ tracklist = map(lambda x: (x[0], x[1][0].replace(' ', '%'), x[1][1].replace(' ',
 if __name__ == '__main__':
 	spotify_dict = defaultdict(str)
 	counter = 0
-	for i in xrange(10000):
+	for i in xrange(len(tracklist)):
 		if counter % 10 == 0:
 			time.sleep(5)
 		try:
@@ -28,6 +28,6 @@ if __name__ == '__main__':
 		except:
 			print i, 'fail'
 
-	f = open('ten_thousand.p', 'wb')
+	f = open('all_ids.p', 'wb')
 	pickle.dump(spotify_dict, f)
 	f.close()
