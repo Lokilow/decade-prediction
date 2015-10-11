@@ -1,26 +1,12 @@
-### Functions to transform raw data into workable form ###
+# Helpful functions for the dataset
 
-### creating a decade column
+# creating a decade column
 def to_decade_int(year):
-    if year < 1930:
-        return 0
-    elif year < 1940:
-        return 1
-    elif year < 1950:
-        return 2
-    if year < 1960:
-        return 3
-    elif year < 1970:
-        return 4
-    elif year < 1980:
-        return 5
-    elif year < 1990:
-        return 6
-    elif year < 2000:
-        return 7
-    else:
+    decade = (year - 1920) // 10
+    if decade > 8:
         return 8
-
+    else:
+        return decade
 
 def to_decade_str(year):
     if year < 1930:
@@ -43,27 +29,32 @@ def to_decade_str(year):
         return ' new millenium'
 
 
-### To help one see the track/song keys.  
+### create decade target
+def to_grouped_decades(year):
+    decade = (year - 1950) // 10
+    if decade < 0:
+        return 0
+    elif decade > 5:
+        return 5
+    else:
+        return decade
+
+
+# To help one see the track/song keys.
 def to_keyName(key):
     keys = dict(zip(range(12), ['C','C#','D', 'Eb', 'E', 'F', 'F#', 'G', 'Ab', 'A', 'Bb', 'B']))
-    if key in keys: 
+    if key in keys:
         return keys[key]
     else:
         return '-1'
+
+
 ### Display major or minor
 def to_quality(mode):
     if mode == 1:
         return ' Major'
     else:
         return ' minor'
-### change time signature to account for 3/4, 4/4 and other. 
-def aggregate_time_sig(time_sig):
-	if time_sig == 4:
-		return 0
-	elif time_sig == 3:
-		return 1
-	else:
-		return 2
 
 
 ### Exploring if a genre is in an artists' tags
@@ -79,11 +70,3 @@ def tempo_correction(tempo):
     if tempo < 25:
         return 120
     else: return tempo
-
-
-### remove outlier 
-
-
-if __name__ == '__main__':
-	
-	df['decade'] = map(to_decade, df['year'])
