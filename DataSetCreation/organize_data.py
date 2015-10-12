@@ -33,6 +33,11 @@ track_list = zip(tracks['artist'], tracks['track_name'])
 track_id_list = list(tracks.index)
 track_dict = dict(zip(track_id_list, track_list))
 
+info_dict = defaultdict()
+info_dict['track_maxes'] = organized.max()
+info_dict['track_mins'] = organized.min()
+info_dict['track_means'] = organized.mean()
+info_dict['track_sds'] = organized.std()
 
 if __name__ == '__main__':
 
@@ -46,4 +51,8 @@ if __name__ == '__main__':
     
     f = open('../../valence_space_data/data/dummied_df.p', 'wb')
     pickle.dump(dummied_df, f)
+    f.close()
+
+    f = open('../../valence_space_data/data/info_dict.p', 'wb')
+    pickle.dump(info_dict, f)
     f.close()
