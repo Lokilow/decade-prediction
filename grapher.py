@@ -10,7 +10,7 @@ tracks = pickle.load(open(
     '../valence_space_data/data/clean_tracks.p', 'rb'))
 
 info_dict = pickle.load(open(
-    '../valence_space_data/data/info_dict.p', 'rb'))
+    '../valence_space_data/data/graph_info_byyear_dict.p', 'rb'))
 
 
 # For tracks
@@ -133,7 +133,5 @@ def histplot(feature):
 
 
 if __name__ == '__main__':
-    info_dict = pickle.load(open('../valence_space_data/data/\
-        graph_info_byyear_dict.p', 'rb'))
     for feature in sys.argv[1:]:
         track_plot(feature)
