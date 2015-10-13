@@ -10,35 +10,35 @@ tracks = pickle.load(open(
     '../valence_space_data/data/clean_tracks.p', 'rb'))
 
 info_dict = pickle.load(open(
-    '../valence_space_data/data/graph_info_byyear_dict.p', 'rb'))
+    '../valence_space_data/data/graph_info.p', 'rb'))
 
 
 # For tracks
 def track_plot(FEATURE):
-    t_years = info_dict['track_maxes'].index
-    x_max = info_dict['track_maxes'][FEATURE]
-    x_min = info_dict['track_mins'][FEATURE]
+    t_years = info_dict['track_means'].index
+    x_max = info_dict['track_upper_q'][FEATURE]
+    x_min = info_dict['track_lower_q'][FEATURE]
     x_mean = info_dict['track_means'][FEATURE]
-    x_std_pos = info_dict['track_means'][FEATURE] + \
-        2*info_dict['track_sds'][FEATURE]
-    x_std_neg = info_dict['track_means'][FEATURE] - \
-        2*info_dict['track_sds'][FEATURE]
+    # x_std_pos = info_dict['track_means'][FEATURE] + \
+    #     2*info_dict['track_sds'][FEATURE]
+    # x_std_neg = info_dict['track_means'][FEATURE] - \
+    #     2*info_dict['track_sds'][FEATURE]
 
-    # trace_max = Scatter(
-    #     x=t_years,
-    #     y=x_max,
-    #     mode='markers',
-    #     name="max Track " + FEATURE,
-    #     marker=Marker(size='4',
-    # ))
+    trace_max = Scatter(
+        x=t_years,
+        y=x_max,
+        mode='markers',
+        name="max Track " + FEATURE,
+        marker=Marker(size='4',
+    ))
 
-    # trace_min = Scatter(
-    #     x=t_years,
-    #     y=x_min,
-    #     mode='markers',
-    #     name="min Track " + FEATURE,
-    #     marker=Marker(size='4',
-    # ))
+    trace_min = Scatter(
+        x=t_years,
+        y=x_min,
+        mode='markers',
+        name="min Track " + FEATURE,
+        marker=Marker(size='4',
+    ))
 
     trace_mean = Scatter(
         x=t_years,
@@ -46,21 +46,21 @@ def track_plot(FEATURE):
         mode='lines',
         name="mean Track " + FEATURE,
         marker=Marker(size='8',))
-    trace_std_pos = Scatter(
-        x=t_years,
-        y=x_std_pos,
-        mode='lines',
-        name="+2 std. dev Track " + FEATURE,
-        marker=Marker(size='4',))
-    trace_std_neg = Scatter(
-        x=t_years,
-        y=x_std_neg,
-        mode='lines',
-        name="-2 std. dev Track " + FEATURE,
-        marker=Marker(size='4',))
+    # trace_std_pos = Scatter(
+    #     x=t_years,
+    #     y=x_std_pos,
+    #     mode='lines',
+    #     name="+2 std. dev Track " + FEATURE,
+    #     marker=Marker(size='4',))
+    # trace_std_neg = Scatter(
+    #     x=t_years,
+    #     y=x_std_neg,
+    #     mode='lines',
+    #     name="-2 std. dev Track " + FEATURE,
+    #     marker=Marker(size='4',))
 
     # Package the trace dictionary into a data object
-    data = Data([trace_mean, trace_std_pos, trace_std_neg])
+    data = Data([trace_mean, trace_max, trace_min])
     layout = Layout(
         title="Track \'" + FEATURE[0].upper() + FEATURE[1:] + "\' vs. Year")
     fig = Figure(data=data, layout=layout)
